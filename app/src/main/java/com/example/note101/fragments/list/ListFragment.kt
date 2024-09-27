@@ -10,8 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -53,10 +56,35 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         swipeToDelete(binding.recyclerView)
 
-
-        setHasOptionsMenu(true)
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val menuHost:MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.list_fragment_menu, menu)
+                val search = menu.findItem(R.id.menu_search)
+                val searchView = search.actionView as? SearchView
+                searchView?.isSubmitButtonEnabled = true
+                searchView?.setOnQueryTextListener(this@ListFragment)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.menu_delete_all -> confirmRemoval()
+                    R.id.menu_priority_high -> notesViewModel.sortByHighPriority()
+                        .observe(viewLifecycleOwner) { adapter.setData(it) }
+
+                    R.id.menu_priority_low -> notesViewModel.sortByLowPriority()
+                        .observe(viewLifecycleOwner) { adapter.setData(it) }
+
+                    android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+                return true
+            }
+        },viewLifecycleOwner,Lifecycle.State.RESUMED)
     }
 
     private fun swipeToDelete(recyclerView: RecyclerView){
@@ -80,25 +108,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             notesViewModel.insertData(deletedItem)
         }
         snackBar.show()
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.list_fragment_menu, menu)
-        val search = menu.findItem(R.id.menu_search)
-        val searchView = search.actionView as? SearchView
-        searchView?.isSubmitButtonEnabled = true
-        searchView?.setOnQueryTextListener(this)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_delete_all -> confirmRemoval()
-            R.id.menu_priority_high -> notesViewModel.sortByHighPriority().observe(viewLifecycleOwner) { adapter.setData(it) }
-            R.id.menu_priority_low -> notesViewModel.sortByLowPriority().observe(viewLifecycleOwner) { adapter.setData(it) }
-
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun confirmRemoval() {
