@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigationSafeArgs)
     alias(libs.plugins.devtoolKsp)
+//    alias(libs.plugins.kapt)
     id("org.jetbrains.kotlin.kapt")
 }
 
@@ -39,6 +40,13 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
+    }
+
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDirs("build/generated/source/navigation-args")
+        }
     }
 }
 
@@ -68,4 +76,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Annotation processor
     ksp(libs.androidx.lifecycle.compiler)
+
 }

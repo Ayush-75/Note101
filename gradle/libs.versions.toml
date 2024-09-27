@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.0"
+agp = "8.6.1"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -9,9 +9,10 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
-kotlinxCoroutinesAndroid = "1.8.1"
+kotlinxCoroutinesAndroid = "1.9.0"
 lifecycleVersion = "2.8.6"
 navVersion = "2.8.1"
+recyclerviewAnimators = "4.0.2"
 roomVersion = "2.6.1"
 devtoolKsp = "2.0.20-1.0.25"
 safeArgs = "2.8.1"
@@ -45,4 +46,5 @@ devtoolKsp = {id = "com.google.devtools.ksp" , version.ref = "devtoolKsp"}
 navigationSafeArgs = {id = "androidx.navigation.safeargs.kotlin", version.ref = "safeArgs"}
 androidLibrary = {id = "com.android.library" , version.ref = "library"}
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlinPlugin"  }
+#kapt = {id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
 
