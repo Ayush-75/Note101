@@ -17,6 +17,7 @@
     <string name="delete">Delete</string>
     <string name="random_notes">Random Notes and Reminders</string>
     <string name="my_title">My Title</string>
+    <string name="by_date">By Date</string>
 
     <string-array name="priorities">
         <item>High Priority</item>

@@ -17,9 +17,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     private val notesDao = NotesDataBase.getDataBase(application).notesDao()
     private val repository: NotesRepository = NotesRepository(notesDao)
 
-    val getAllData: LiveData<List<NotesData>> = repository.getAllData
-
-    private val sortOrder = MutableLiveData<SortOrder>(SortOrder.BY_DATE)
+    private val sortOrder = MutableLiveData(SortOrder.BY_DATE)
 
     val allNotes: LiveData<List<NotesData>> = sortOrder.switchMap { order ->
         when (order) {
@@ -52,8 +50,4 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun searchDatabase(searchQuery: String): LiveData<List<NotesData>> = repository.searchDatabase(searchQuery)
-
-    val sortByHighPriority: LiveData<List<NotesData>> = repository.sortByHighPriority
-
-    val sortByLowPriority: LiveData<List<NotesData>> = repository.sortByLowPriority
 }

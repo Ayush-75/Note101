@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.note101.R
+import com.example.note101.data.SortOrder
 import com.example.note101.data.models.NotesData
 import com.example.note101.data.viewmodel.NotesViewModel
 import com.example.note101.data.viewmodel.SharedViewModel
@@ -48,7 +49,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
 
 
-        notesViewModel.getAllData.observe(viewLifecycleOwner) { data ->
+        notesViewModel.allNotes.observe(viewLifecycleOwner) { data ->
             sharedViewModel.checkIfDatabaseEmpty(data)
             adapter.submitList(data)
             binding.recyclerView.scheduleLayoutAnimation()
@@ -99,21 +100,20 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.menu_delete_all -> confirmRemoval()
-                    R.id.menu_priority_high ->
-                        notesViewModel.sortByHighPriority.observe(viewLifecycleOwner) {
-                            adapter.submitList(it)
-                        }
-
-                    R.id.menu_priority_low ->
-                        notesViewModel.sortByLowPriority.observe(viewLifecycleOwner) {
-                            adapter.submitList(it)
-                        }
+                    R.id.menu_priority_high -> notesViewModel.setSortOrder(SortOrder.BY_PRIORITY_HIGH)
+                    R.id.menu_priority_low -> notesViewModel.setSortOrder(SortOrder.BY_PRIORITY_LOW)
+                    R.id.menu_by_date -> notesViewModel.setSortOrder(SortOrder.BY_DATE)
 
                     android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notesViewModel.setSortOrder(SortOrder.BY_DATE)
     }
 
     private fun confirmRemoval() {
