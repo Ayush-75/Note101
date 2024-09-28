@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.note101.R
@@ -39,6 +42,7 @@ class UpdateFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.args = args
         binding.updatePrioritiesSpinner.onItemSelectedListener = sharedViewModel.listener
+
         return binding.root
     }
 
@@ -53,6 +57,7 @@ class UpdateFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun confirmItemRemoval() {
         val builder = AlertDialog.Builder(requireContext())
@@ -85,6 +90,7 @@ class UpdateFragment : Fragment() {
                     description
                 )
                 notesViewModel.update(updatedItem)
+
                 Toast.makeText(context, "Successfully Updated!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_updateFragment_to_listFragment)
             } else

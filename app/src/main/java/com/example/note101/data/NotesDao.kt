@@ -11,10 +11,10 @@ import com.example.note101.data.models.NotesData
 @Dao
 interface NotesDao {
 
-    @Query("SELECT * FROM notes_table ORDER BY id ASC")
+    @Query("SELECT * FROM notes_table ORDER BY id DESC")
     fun getAllData(): LiveData<List<NotesData>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertData(notesData: NotesData)
 
     @Update

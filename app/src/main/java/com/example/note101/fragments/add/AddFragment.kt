@@ -10,7 +10,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.note101.R
 import com.example.note101.data.models.NotesData
@@ -21,16 +24,18 @@ import com.example.note101.databinding.FragmentAddBinding
 
 
 class AddFragment : Fragment() {
-    private lateinit var binding: FragmentAddBinding
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
+
     private val notesViewModel: NotesViewModel by viewModels()
     private val sharedViewModel:SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding =  FragmentAddBinding.inflate(layoutInflater, container, false)
+        _binding =  FragmentAddBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
 
         binding.prioritiesSpinner.onItemSelectedListener = sharedViewModel.listener
@@ -71,6 +76,10 @@ class AddFragment : Fragment() {
             else
                 Toast.makeText(context, "Please fill out all fields", Toast.LENGTH_SHORT).show()
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

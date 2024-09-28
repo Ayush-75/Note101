@@ -23,7 +23,7 @@ fun FloatingActionButton.navigateToAddFragment(navigate: Boolean) {
 }
 
 @BindingAdapter("emptyDataBase")
-fun View.emptyDataBase(emptyDatabase: MutableLiveData<Boolean>){
+fun View.emptyDataBase(emptyDatabase: MutableLiveData<Boolean>) {
     when (emptyDatabase.value) {
         true -> this.visibility = View.VISIBLE
         else -> this.visibility = View.INVISIBLE
@@ -31,17 +31,27 @@ fun View.emptyDataBase(emptyDatabase: MutableLiveData<Boolean>){
 }
 
 @BindingAdapter("parsePriorityToInt")
-fun Spinner.parsePriorityToInt(priority: Priority){
-    when(priority){
-        Priority.HIGH -> setSelection(0)
-        Priority.MEDIUM -> setSelection(1)
-        Priority.LOW -> setSelection(2)
+fun Spinner.parsePriorityToInt(priority: Priority?) {
+    when (priority) {
+        Priority.HIGH -> {
+            this.setSelection(0)
+        }
+
+        Priority.MEDIUM -> {
+            this.setSelection(1)
+        }
+
+        Priority.LOW -> {
+            this.setSelection(2)
+        }
+
+        null -> this.setSelection(0)
     }
 }
 
 @BindingAdapter("parsePriorityColor")
-fun CardView.parsePriorityColor(priority: Priority){
-    when(priority){
+fun CardView.parsePriorityColor(priority: Priority) {
+    when (priority) {
         Priority.HIGH -> setCardBackgroundColor(this.context.getColor(R.color.red))
         Priority.MEDIUM -> setCardBackgroundColor(this.context.getColor(R.color.yellow))
         Priority.LOW -> setCardBackgroundColor(this.context.getColor(R.color.green))

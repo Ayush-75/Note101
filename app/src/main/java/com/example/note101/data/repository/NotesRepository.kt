@@ -18,9 +18,9 @@ class NotesRepository(private val notesDao: NotesDao) {
 
     fun searchDatabase(searchQuery: String): LiveData<List<NotesData>> = notesDao.searchDatabase(searchQuery)
 
-    fun sortByHighPriority(): LiveData<List<NotesData>> = notesDao.sortByHighPriority()
+    val sortByHighPriority: LiveData<List<NotesData>> = notesDao.sortByHighPriority()
 
-    fun sortByLowPriority(): LiveData<List<NotesData>> = notesDao.sortByLowPriority()
+    val sortByLowPriority: LiveData<List<NotesData>> = notesDao.sortByLowPriority()
 
 
 }
