@@ -76,5 +76,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Annotation processor
     ksp(libs.androidx.lifecycle.compiler)
+    //Splash Screen Api
+    implementation(libs.androidx.core.splashscreen)
 
 }

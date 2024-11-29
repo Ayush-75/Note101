@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:navigateToAddFragment="@{true}" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/no_data_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/no_data_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

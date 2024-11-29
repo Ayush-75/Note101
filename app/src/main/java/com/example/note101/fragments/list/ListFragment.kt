@@ -46,7 +46,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.shareViewModel = sharedViewModel
 
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
 
 
         notesViewModel.allNotes.observe(viewLifecycleOwner) { data ->

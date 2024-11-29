@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:cardCornerRadius="100dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/title" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/description_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

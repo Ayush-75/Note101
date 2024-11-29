@@ -11,7 +11,7 @@ import com.example.note101.databinding.RowLayoutBinding
 class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 //    var dataList = emptyList<NotesData>()
 
-     val differCallBack = object : DiffUtil.ItemCallback<NotesData>() {
+     private val differCallBack = object : DiffUtil.ItemCallback<NotesData>() {
         override fun areItemsTheSame(oldItem: NotesData, newItem: NotesData): Boolean {
             return oldItem.id == newItem.id
         }
@@ -41,7 +41,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
         differ.submitList(list)
     }
 
-    class ViewHolder(var binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private var binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NotesData) {
             binding.notesData = item
             binding.executePendingBindings()

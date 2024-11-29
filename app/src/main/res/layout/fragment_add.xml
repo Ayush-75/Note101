@@ -7,7 +7,7 @@
     android:padding="@dimen/_24dp"
     tools:context=".fragments.add.AddFragment">
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/title_et"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/priorities_spinner"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_et" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/description_et"
         android:layout_width="0dp"
         android:layout_height="0dp"
